@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="540.0" prefWidth="905.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.employeemanagementsystem.DashboardController">
+   <children>
+      <AnchorPane layoutX="-4.0" layoutY="37.0" prefHeight="503.0" prefWidth="200.0" styleClass="anch1" stylesheets="@style.css">
+         <children>
+            <ImageView fitHeight="97.0" fitWidth="109.0" layoutX="40.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="369.4" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="53.400000000000006" AnchorPane.topAnchor="28.0">
+               <image>
+                  <Image url="@Images/member.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="46.0" layoutY="111.0" prefHeight="27.0" prefWidth="97.0" text="Welcome!">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Line endX="100.0" layoutX="79.0" layoutY="159.0" startX="-68.49998474121094" />
+            <Button fx:id="btnhome" layoutX="12.0" layoutY="202.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Home" />
+            <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="23.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/home.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnsalary" layoutX="11.0" layoutY="278.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Employee Salary" />
+            <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="23.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/cash.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnaddmember" layoutX="11.0" layoutY="240.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Add Member" />
+            <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="23.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/add.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnlogout" layoutX="11.0" layoutY="442.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Logout" />
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="23.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/logout.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="lblupper" prefHeight="38.0" prefWidth="987.0" style="-fx-background-color: #cc9900;">
+         <children>
+            <ImageView fitHeight="23.0" fitWidth="34.0" layoutX="3.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/emp.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="40.0" layoutY="13.0" text="Employee Management System" />
+            <Button fx:id="btnclose" layoutX="541.0" layoutY="2.0" mnemonicParsing="false" onAction="#close" style="-fx-background-color: transparent;" styleClass="close" stylesheets="@style.css" text="Close" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="home_form" layoutX="205.0" layoutY="47.0" prefHeight="484.0" prefWidth="782.0" styleClass="anch2" stylesheets="@style.css" visible="false">
+         <children>
+            <AnchorPane layoutX="20.0" layoutY="14.0" prefHeight="132.0" prefWidth="216.0" style="-fx-background-radius: 30;" styleClass="card" stylesheets="@style.css">
+               <children>
+                  <ImageView fitHeight="54.0" fitWidth="46.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/emp.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="68.0" layoutY="80.0" text="Total Employees">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="home_totemp" alignment="CENTER_RIGHT" layoutX="68.0" layoutY="24.0" prefHeight="26.0" prefWidth="131.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="283.0" layoutY="14.0" prefHeight="132.0" prefWidth="216.0" style="-fx-background-radius: 30;" styleClass="card" stylesheets="@style.css">
+               <children>
+                  <ImageView fitHeight="54.0" fitWidth="46.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/check.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="108.0" layoutY="84.0" text="Attennded">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="home_attend" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="29.0" prefHeight="26.0" prefWidth="131.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="541.0" layoutY="14.0" prefHeight="132.0" prefWidth="216.0" style="-fx-background-radius: 30;" styleClass="card" stylesheets="@style.css">
+               <children>
+                  <ImageView fitHeight="54.0" fitWidth="46.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/minus.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="home_inactive" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="35.0" layoutY="83.0" prefHeight="26.0" prefWidth="167.0" text="Inactive Employees">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="70.0" layoutY="22.0" prefHeight="26.0" prefWidth="131.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <StackedBarChart fx:id="home_chart" layoutX="130.0" layoutY="211.0" prefHeight="282.0" prefWidth="556.0" title="Employee Data Chart">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </StackedBarChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css" visible="false">
+         <children>
+            <AnchorPane prefHeight="300.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
+               <children>
+                  <TableView layoutX="22.0" layoutY="86.0" prefHeight="200.0" prefWidth="717.0">
+                    <columns>
+                      <TableColumn fx:id="member_co_empId" prefWidth="100.80003356933594" text="Employee ID" />
+                      <TableColumn fx:id="member_co_fname" prefWidth="101.60003662109375" text="First Name" />
+                        <TableColumn fx:id="member_co_lname" prefWidth="104.0" text="Last Name" />
+                        <TableColumn fx:id="member_co_gender" minWidth="8.79998779296875" prefWidth="67.20001220703125" text="Gender" />
+                        <TableColumn fx:id="member_co_phn" prefWidth="132.0" text="Phone Number" />
+                        <TableColumn fx:id="member_co_position" prefWidth="100.79998779296875" text="Position" />
+                        <TableColumn fx:id="member_co_date" minWidth="8.79998779296875" prefWidth="108.00002441406252" text="Date" />
+                    </columns>
+                  </TableView>
+                  <TextField fx:id="member_search" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" prefHeight="26.0" prefWidth="230.0" promptText="Search" />
+                  <ImageView fitHeight="18.0" fitWidth="17.0" layoutX="22.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Label alignment="CENTER_RIGHT" layoutX="25.0" layoutY="328.0" prefHeight="18.0" prefWidth="86.0" text="Employee ID :" />
+            <Label alignment="CENTER_RIGHT" layoutX="25.0" layoutY="362.0" prefHeight="18.0" prefWidth="86.0" text="First Name :" />
+            <TextField fx:id="member_empId" layoutX="126.0" layoutY="324.0" prefHeight="26.0" prefWidth="167.0" />
+            <TextField fx:id="member_fname" layoutX="126.0" layoutY="358.0" prefHeight="26.0" prefWidth="167.0" />
+            <Label alignment="CENTER_RIGHT" layoutX="25.0" layoutY="423.0" prefHeight="18.0" prefWidth="86.0" text="Gender :" />
+            <Label alignment="CENTER_RIGHT" layoutX="25.0" layoutY="394.0" prefHeight="18.0" prefWidth="86.0" text="Last Name :" />
+            <TextField fx:id="member_lname" layoutX="126.0" layoutY="390.0" prefHeight="26.0" prefWidth="167.0" />
+            <ComboBox fx:id="member_gender" layoutX="126.0" layoutY="420.0" prefHeight="26.0" prefWidth="167.0" promptText="Choose">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ComboBox>
+            <Label alignment="CENTER_RIGHT" layoutX="358.0" layoutY="328.0" prefHeight="18.0" prefWidth="86.0" text="Phone Number :" />
+            <TextField fx:id="member_phn" layoutX="453.0" layoutY="324.0" prefHeight="26.0" prefWidth="167.0" />
+            <Label alignment="CENTER_RIGHT" layoutX="358.0" layoutY="362.0" prefHeight="18.0" prefWidth="86.0" text="Position :" />
+            <ComboBox fx:id="member_position" layoutX="453.0" layoutY="358.0" prefHeight="26.0" prefWidth="167.0" />
+            <ImageView fx:id="member_img" fitHeight="115.0" fitWidth="115.0" layoutX="640.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="member_import" layoutX="656.0" layoutY="390.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Import" />
+            <Button fx:id="member_clear" layoutX="338.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Clear" />
+            <Button fx:id="member_delete" layoutX="444.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Delete" />
+            <Button fx:id="member_update" layoutX="553.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Update" />
+            <Button fx:id="member_add" layoutX="656.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Add" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="salary_form" layoutX="211.0" layoutY="49.0" prefHeight="482.0" prefWidth="762.0" visible="false">
+         <children>
+            <AnchorPane layoutX="303.0" prefHeight="482.0" prefWidth="458.0" styleClass="anch2" stylesheets="@style.css">
+               <children>
+                  <TableView layoutX="21.0" layoutY="21.0" prefHeight="442.0" prefWidth="425.0">
+                     <columns>
+                        <TableColumn fx:id="salary_co_empid" prefWidth="88.0" text="Employee ID" />
+                        <TableColumn fx:id="salary_co_fname" text="First Name" />
+                        <TableColumn fx:id="salary_co_lname" prefWidth="83.19989013671875" text="Last Name" />
+                        <TableColumn fx:id="salary_co_position" prefWidth="88.7999267578125" text="Position" />
+                        <TableColumn fx:id="salary_co_salary" prefWidth="84.0001220703125" text="Salary" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="8.0" prefHeight="482.0" prefWidth="279.0" styleClass="anch2" stylesheets="@style.css">
+               <children>
+                  <Label alignment="CENTER_RIGHT" layoutX="27.0" layoutY="41.0" prefHeight="18.0" prefWidth="86.0" text="Employee ID :" />
+                  <Label alignment="CENTER_RIGHT" layoutX="27.0" layoutY="66.0" prefHeight="18.0" prefWidth="86.0" text="First Name :" />
+                  <Label alignment="CENTER_RIGHT" layoutX="27.0" layoutY="93.0" prefHeight="18.0" prefWidth="86.0" text="Last Name :" />
+                  <Label alignment="CENTER_RIGHT" layoutX="27.0" layoutY="119.0" prefHeight="18.0" prefWidth="86.0" text="Position :" />
+                  <Label alignment="CENTER_RIGHT" layoutX="27.0" layoutY="144.0" prefHeight="18.0" prefWidth="86.0" text="Salary :" />
+                  <TextField fx:id="salary_empId" layoutX="123.0" layoutY="37.0" />
+                  <TextField fx:id="salary_salary" layoutX="123.0" layoutY="140.0" />
+                  <Label fx:id="salary_fname" layoutX="126.0" layoutY="67.0" text="Label" />
+                  <Label fx:id="salary_lname" layoutX="126.0" layoutY="93.0" text="Label" />
+                  <Label fx:id="salary_position" layoutX="126.0" layoutY="119.0" text="Label" />
+                  <Button fx:id="salary_clear" layoutX="27.0" layoutY="210.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Clear" />
+                  <Button fx:id="salary_update" layoutX="154.0" layoutY="210.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
