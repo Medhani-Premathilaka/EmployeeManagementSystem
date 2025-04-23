@@ -140,11 +140,11 @@
             </StackedBarChart>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css" visible="false">
+      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
          <children>
             <AnchorPane prefHeight="300.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
                <children>
-                  <TableView layoutX="22.0" layoutY="86.0" prefHeight="200.0" prefWidth="717.0">
+                  <TableView layoutX="22.0" layoutY="86.0" prefHeight="200.0" prefWidth="717.0" stylesheets="@style.css">
                     <columns>
                       <TableColumn fx:id="member_co_empId" prefWidth="100.80003356933594" text="Employee ID" />
                       <TableColumn fx:id="member_co_fname" prefWidth="101.60003662109375" text="First Name" />
@@ -155,7 +155,7 @@
                         <TableColumn fx:id="member_co_date" minWidth="8.79998779296875" prefWidth="108.00002441406252" text="Date" />
                     </columns>
                   </TableView>
-                  <TextField fx:id="member_search" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" prefHeight="26.0" prefWidth="230.0" promptText="Search" />
+                  <TextField fx:id="member_search" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" prefHeight="26.0" prefWidth="230.0" promptText="Search" styleClass="search" stylesheets="@style.css" />
                   <ImageView fitHeight="18.0" fitWidth="17.0" layoutX="22.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Images/search.png" />
@@ -178,13 +178,21 @@
             <Label alignment="CENTER_RIGHT" layoutX="358.0" layoutY="328.0" prefHeight="18.0" prefWidth="86.0" text="Phone Number :" />
             <TextField fx:id="member_phn" layoutX="453.0" layoutY="324.0" prefHeight="26.0" prefWidth="167.0" />
             <Label alignment="CENTER_RIGHT" layoutX="358.0" layoutY="362.0" prefHeight="18.0" prefWidth="86.0" text="Position :" />
-            <ComboBox fx:id="member_position" layoutX="453.0" layoutY="358.0" prefHeight="26.0" prefWidth="167.0" />
-            <ImageView fx:id="member_img" fitHeight="115.0" fitWidth="115.0" layoutX="640.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="member_import" layoutX="656.0" layoutY="390.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Import" />
-            <Button fx:id="member_clear" layoutX="338.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Clear" />
-            <Button fx:id="member_delete" layoutX="444.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Delete" />
-            <Button fx:id="member_update" layoutX="553.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Update" />
-            <Button fx:id="member_add" layoutX="656.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Add" />
+            <ComboBox fx:id="member_position" layoutX="453.0" layoutY="358.0" prefHeight="26.0" prefWidth="167.0" promptText="Choose" />
+            <Button fx:id="member_clear" layoutX="338.0" layoutY="444.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Clear" />
+            <Button fx:id="member_delete" layoutX="444.0" layoutY="444.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Delete" />
+            <Button fx:id="member_update" layoutX="553.0" layoutY="444.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" />
+            <Button fx:id="member_add" layoutX="661.0" layoutY="444.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Add">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Button>
+            <AnchorPane layoutX="633.0" layoutY="307.0" prefHeight="132.0" prefWidth="117.0" style="-fx-border-color: black;">
+               <children>
+                  <ImageView fx:id="member_img" fitHeight="115.0" fitWidth="115.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="member_import" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Import" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="salary_form" layoutX="211.0" layoutY="49.0" prefHeight="482.0" prefWidth="762.0" visible="false">
