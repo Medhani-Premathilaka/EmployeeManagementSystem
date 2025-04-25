@@ -149,7 +149,7 @@
          <children>
             <AnchorPane prefHeight="300.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
                <children>
-                  <TableView fx:id="member_tableView" layoutX="22.0" layoutY="86.0" prefHeight="200.0" prefWidth="717.0" stylesheets="@style.css">
+                  <TableView fx:id="member_tableView" layoutX="22.0" layoutY="86.0" onSort="#addEmployeeSelect" prefHeight="200.0" prefWidth="717.0" stylesheets="@style.css">
                     <columns>
                       <TableColumn fx:id="member_co_empId" prefWidth="100.80003356933594" text="Employee ID" />
                       <TableColumn fx:id="member_co_fname" prefWidth="101.60003662109375" text="First Name" />
@@ -186,7 +186,7 @@
             <ComboBox fx:id="member_position" layoutX="453.0" layoutY="358.0" onAction="#addEmployeePositionList" prefHeight="26.0" prefWidth="167.0" promptText="Choose" />
             <Button fx:id="member_clear" layoutX="338.0" layoutY="444.0" mnemonicParsing="false" onAction="#addEmployeeReset" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Clear" />
             <Button fx:id="member_delete" layoutX="444.0" layoutY="444.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Delete" />
-            <Button fx:id="member_update" layoutX="553.0" layoutY="444.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" />
+            <Button fx:id="member_update" layoutX="553.0" layoutY="444.0" mnemonicParsing="false" onAction="#addEmployeeUpdate" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" />
             <Button fx:id="member_add" layoutX="661.0" layoutY="444.0" mnemonicParsing="false" onAction="#addEmployeeAdd" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Add">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />

@@ -2,6 +2,7 @@ package com.example.employeemanagementsystem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -183,12 +184,109 @@ public class DashboardController implements Initializable {
     private ResultSet rs;
     private Image image;
 
+//    public void memberSearch(){
+//        FilteredList<employeeData> filter = new FilteredList<>(addEmployeeList, e -> true);
+//        filter.setPredicate(predicateEmployeeData ->{
+//            if(newValue == null || newValue.isEmpty()){
+//                return true;
+//        });
+//    }
 
+    public void addEmployeeUpdate(){
+
+        String uri = getData.path;
+        uri = uri.replace("\\","\\\\");
+
+        Date date = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+        String sql = "update employeedata set firstname = '"+ member_fname.getText() +" ' , lastname = '" +member_lname.getText() +" ' , gender = ' " + member_gender.getSelectionModel().getSelectedItem() + " ' , position = ' " +member_position.getSelectionModel().getSelectedItem() + "' phone_number = ' " + member_phn.getText() + " ' , image = ' " + uri + " ' , date = ' " + sqlDate + " ' where employee_id = '" + member_empId.getText() + "'";
+
+        conn = DBconnct.connect();
+        try{
+            if(member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() || member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() || member_position.getSelectionModel().getSelectedItem() == null || getData.path == null) {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText(null);
+                a.setContentText("Please fill all fields");
+                a.showAndWait();
+
+            }else{
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText(null);
+                a.setContentText("Are you sure you want to update?");
+                Optional<ButtonType> option = a.showAndWait();
+
+                if(option.get().equals(ButtonType.OK)){
+                   stmt = conn.createStatement();
+                   stmt.executeUpdate(sql);
+
+                   a =  new Alert(Alert.AlertType.INFORMATION);
+                   a.setTitle("Information Message");
+                   a.setHeaderText(null);
+                   a.setHeaderText("Successfully Updated!");
+                   a.showAndWait();
+
+                    addEmployeeShowListData();
+                    addEmployeeReset();
+                }
+
+
+            }
+
+        }catch (Exception e){
+                e.printStackTrace();
+        }
+
+    }
+    public  void addEmployeeDelete(){
+
+        String  sql = "delete from employeedata where employee_id = '" + member_empId.getText() + "'";
+
+        conn = DBconnct.connect();
+
+        try{
+            if(member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() || member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() || member_position.getSelectionModel().getSelectedItem() == null || getData.path == null) {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText(null);
+                a.setContentText("Please fill all fields");
+                a.showAndWait();
+
+            }else{
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText(null);
+                a.setContentText("Are you sure you want to delete?");
+                Optional<ButtonType> option = a.showAndWait();
+
+                if(option.get().equals(ButtonType.OK)){
+                    stmt = conn.createStatement();
+                    stmt.executeUpdate(sql);
+
+                    a =  new Alert(Alert.AlertType.INFORMATION);
+                    a.setTitle("Information Message");
+                    a.setHeaderText(null);
+                    a.setHeaderText("Successfully Updated!");
+                    a.showAndWait();
+
+                    addEmployeeShowListData();
+                    addEmployeeReset();
+                }
+
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public void addEmployeeAdd(){
         Date date = new Date();
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-        String sql = "insert into employee" +
+        String sql = "insert into employeedata" +
                 "(employee_id,firstname,lastname,gender,phon_number,position,date,image)" + "values(?,?,?,?,?,?,?)";
         conn = DBconnct.connect();
         try{
@@ -201,7 +299,7 @@ public class DashboardController implements Initializable {
                 a.showAndWait();
 
             }else{
-                String check = "select employee_id from employee where eployee_id = '" + member_empId.getText() + "'";
+                String check = "select employee_id from employeedata where eployee_id = '" + member_empId.getText() + "'";
 
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery(check);
