@@ -52,6 +52,8 @@ public class LoginController {
                 a.showAndWait();
             }else{
                 if(rs.next()){
+                    getData.username = username.getText();
+
                     a = new Alert(Alert.AlertType.INFORMATION);
                     a.setTitle("Infromation Message");
                     a.setHeaderText(null);

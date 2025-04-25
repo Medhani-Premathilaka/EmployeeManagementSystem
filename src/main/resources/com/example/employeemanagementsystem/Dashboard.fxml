@@ -30,31 +30,36 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Line endX="100.0" layoutX="79.0" layoutY="159.0" startX="-68.49998474121094" />
-            <Button fx:id="btnhome" layoutX="12.0" layoutY="202.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Home" />
+            <Line endX="100.0" layoutX="79.0" layoutY="181.0" startX="-68.49998474121094" />
+            <Button fx:id="btnhome" layoutX="12.0" layoutY="202.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Home" />
             <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="23.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/home.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnsalary" layoutX="11.0" layoutY="278.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Employee Salary" />
+            <Button fx:id="btnsalary" layoutX="11.0" layoutY="278.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Employee Salary" />
             <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="23.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/cash.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnaddmember" layoutX="11.0" layoutY="240.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Add Member" />
+            <Button fx:id="btnaddmember" layoutX="11.0" layoutY="240.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Add Member" />
             <ImageView fitHeight="23.0" fitWidth="30.0" layoutX="23.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/add.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnlogout" layoutX="11.0" layoutY="442.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Logout" />
+            <Button fx:id="btnlogout" layoutX="11.0" layoutY="442.0" mnemonicParsing="false" onAction="#logout" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Logout" />
             <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="23.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/logout.png" />
                </image>
             </ImageView>
+            <Button fx:id="username" layoutX="10.0" layoutY="138.0" mnemonicParsing="false" onAction="#displaUsername" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="User">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="lblupper" prefHeight="38.0" prefWidth="987.0" style="-fx-background-color: #cc9900;">
@@ -140,11 +145,11 @@
             </StackedBarChart>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css" visible="false">
+      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
          <children>
             <AnchorPane prefHeight="300.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
                <children>
-                  <TableView layoutX="22.0" layoutY="86.0" prefHeight="200.0" prefWidth="717.0">
+                  <TableView fx:id="member_tableView" layoutX="22.0" layoutY="86.0" prefHeight="200.0" prefWidth="717.0" stylesheets="@style.css">
                     <columns>
                       <TableColumn fx:id="member_co_empId" prefWidth="100.80003356933594" text="Employee ID" />
                       <TableColumn fx:id="member_co_fname" prefWidth="101.60003662109375" text="First Name" />
@@ -155,7 +160,7 @@
                         <TableColumn fx:id="member_co_date" minWidth="8.79998779296875" prefWidth="108.00002441406252" text="Date" />
                     </columns>
                   </TableView>
-                  <TextField fx:id="member_search" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" prefHeight="26.0" prefWidth="230.0" promptText="Search" />
+                  <TextField fx:id="member_search" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" prefHeight="26.0" prefWidth="230.0" promptText="Search" styleClass="search" stylesheets="@style.css" />
                   <ImageView fitHeight="18.0" fitWidth="17.0" layoutX="22.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Images/search.png" />
@@ -170,7 +175,7 @@
             <Label alignment="CENTER_RIGHT" layoutX="25.0" layoutY="423.0" prefHeight="18.0" prefWidth="86.0" text="Gender :" />
             <Label alignment="CENTER_RIGHT" layoutX="25.0" layoutY="394.0" prefHeight="18.0" prefWidth="86.0" text="Last Name :" />
             <TextField fx:id="member_lname" layoutX="126.0" layoutY="390.0" prefHeight="26.0" prefWidth="167.0" />
-            <ComboBox fx:id="member_gender" layoutX="126.0" layoutY="420.0" prefHeight="26.0" prefWidth="167.0" promptText="Choose">
+            <ComboBox fx:id="member_gender" layoutX="126.0" layoutY="420.0" onAction="#addEmployeeGenderList" prefHeight="26.0" prefWidth="167.0" promptText="Choose">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -178,13 +183,21 @@
             <Label alignment="CENTER_RIGHT" layoutX="358.0" layoutY="328.0" prefHeight="18.0" prefWidth="86.0" text="Phone Number :" />
             <TextField fx:id="member_phn" layoutX="453.0" layoutY="324.0" prefHeight="26.0" prefWidth="167.0" />
             <Label alignment="CENTER_RIGHT" layoutX="358.0" layoutY="362.0" prefHeight="18.0" prefWidth="86.0" text="Position :" />
-            <ComboBox fx:id="member_position" layoutX="453.0" layoutY="358.0" prefHeight="26.0" prefWidth="167.0" />
-            <ImageView fx:id="member_img" fitHeight="115.0" fitWidth="115.0" layoutX="640.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="member_import" layoutX="656.0" layoutY="390.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Import" />
-            <Button fx:id="member_clear" layoutX="338.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Clear" />
-            <Button fx:id="member_delete" layoutX="444.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Delete" />
-            <Button fx:id="member_update" layoutX="553.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Update" />
-            <Button fx:id="member_add" layoutX="656.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Add" />
+            <ComboBox fx:id="member_position" layoutX="453.0" layoutY="358.0" onAction="#addEmployeePositionList" prefHeight="26.0" prefWidth="167.0" promptText="Choose" />
+            <Button fx:id="member_clear" layoutX="338.0" layoutY="444.0" mnemonicParsing="false" onAction="#addEmployeeReset" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Clear" />
+            <Button fx:id="member_delete" layoutX="444.0" layoutY="444.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Delete" />
+            <Button fx:id="member_update" layoutX="553.0" layoutY="444.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" />
+            <Button fx:id="member_add" layoutX="661.0" layoutY="444.0" mnemonicParsing="false" onAction="#addEmployeeAdd" prefHeight="30.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Add">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Button>
+            <AnchorPane layoutX="633.0" layoutY="307.0" prefHeight="132.0" prefWidth="117.0" style="-fx-border-color: black;">
+               <children>
+                  <ImageView fx:id="member_img" fitHeight="115.0" fitWidth="115.0" layoutY="14.0" onMouseClicked="#addEmployeeInsertImage" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="member_import" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" onMouseClicked="#addEmployeeInsertImage" prefHeight="26.0" prefWidth="86.0" text="Import" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="salary_form" layoutX="211.0" layoutY="49.0" prefHeight="482.0" prefWidth="762.0" visible="false">
@@ -215,7 +228,7 @@
                   <Label fx:id="salary_lname" layoutX="126.0" layoutY="93.0" text="Label" />
                   <Label fx:id="salary_position" layoutX="126.0" layoutY="119.0" text="Label" />
                   <Button fx:id="salary_clear" layoutX="27.0" layoutY="210.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Clear" />
-                  <Button fx:id="salary_update" layoutX="154.0" layoutY="210.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" />
+                  <Button fx:id="salary_update" layoutX="154.0" layoutY="210.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" visible="false" />
                </children>
             </AnchorPane>
          </children>
