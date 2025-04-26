@@ -11,12 +11,12 @@ public class employeeData {
     private String phonenumber;
     private String position;
     private String image;
-    private Date date;
-    private String Image;
+   private Date date;
+
     private Double salary;
 
 
-    public employeeData(String employeeId, String firstName, String lastName, String gender, String phonenumber, String position, String image) {
+    public employeeData(String employeeId, String firstName, String lastName, String gender, String phonenumber, String position, Date date) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;

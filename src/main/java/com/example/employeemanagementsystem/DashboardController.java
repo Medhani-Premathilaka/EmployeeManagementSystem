@@ -298,11 +298,11 @@ public void salaryShowListData(){
 
     salaryList = salaryListData();
 
-    salary_co_empid.setCellValueFactory(new PropertyValueFactory("employeeId"));
+    salary_co_empid.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
     salary_co_fname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-    salary_co_lname.setCellValueFactory(new PropertyValueFactory("lastname"));
-    salary_co_position.setCellValueFactory(new PropertyValueFactory("position"));
-    salary_co_salary.setCellValueFactory(new PropertyValueFactory("salary"));
+    salary_co_lname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+    salary_co_position.setCellValueFactory(new PropertyValueFactory<>("position"));
+    salary_co_salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 
     salary_tableView.setItems(salaryList);
 }
@@ -394,6 +394,7 @@ public void memberSearch() {
 
                     addEmployeeShowListData();
                     addEmployeeReset();
+                    member_tableView.refresh();
                 }
 
 
@@ -553,9 +554,12 @@ public  void salaryReset(){
 
             String uri = getData.path;
             uri = uri.replace("\\", "\\\\");
-            pr.setString(7, uri);
-            pr.setDate(8, sqlDate);
+            pr.setString(8, uri);
+            pr.setDate(7, sqlDate);
             pr.executeUpdate();
+
+            addEmployeeShowListData();
+            member_tableView.refresh();
 
             String insertInfo = "inset into emp_info" + "(employee_id,firstname,lastname,position,salary) values(?,?,?,?,?)";
 
@@ -574,8 +578,11 @@ public  void salaryReset(){
             a.setContentText("successfully added");
             a.showAndWait();
 
-            addEmployeeShowListData();
+            //addEmployeeShowListData();
+
+            member_tableView.refresh();
             addEmployeeReset();
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -644,7 +651,7 @@ public void addEmployeeGenderList(){
 
     public ObservableList<employeeData> addEmployeeList(){
         ObservableList<employeeData> listdata = FXCollections.observableArrayList();
-        String sql = "select * from employeeData";
+        String sql = "select * from employeedata";
 
         conn = DBconnct.connect();
 
@@ -655,11 +662,13 @@ public void addEmployeeGenderList(){
             employeeData emp;
 
             while(rs.next()){
-                emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("gender"),rs.getString("phon_number"),rs.getString("position"),rs.getString("date"));
+                emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("gender"),rs.getString("phon_number"),rs.getString("position"),rs.getDate("date"));
 
                 listdata.add(emp);
 
+
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -689,8 +698,8 @@ private ObservableList<employeeData> addEmployeeList;
 
         // Set the cell value factories for each column
         member_co_empId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
-        member_co_fname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-        member_co_lname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        member_co_fname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        member_co_lname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         member_co_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         member_co_phn.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
         member_co_position.setCellValueFactory(new PropertyValueFactory<>("position"));
@@ -698,6 +707,9 @@ private ObservableList<employeeData> addEmployeeList;
 
         // Set the data in the table view
         member_tableView.setItems(addEmployeeList);
+        addEmployeeSelect();
+
+
     }
 //    public void addEmployeeSelect(){
 //        employeeData emp = member_tableView.getSelectionModel().getSelctedItem();
@@ -814,6 +826,7 @@ public void addEmployeeSelect() {
         homeTotalEployee();
         addEmployeeTotalPresent();
         homeTotalInactive();
+        addEmployeeSelect();
 
         addEmployeeShowListData();
         addEmployeeGenderList();
