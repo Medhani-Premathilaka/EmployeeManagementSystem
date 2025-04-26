@@ -105,7 +105,7 @@ public class DashboardController implements Initializable {
     private AnchorPane member_form;
 
     @FXML
-    private ComboBox<?> member_gender;
+    private ComboBox<String> member_gender;
 
     @FXML
     private ImageView member_img;
@@ -120,7 +120,7 @@ public class DashboardController implements Initializable {
     private TextField member_phn;
 
     @FXML
-    private ComboBox<?> member_position;
+    private ComboBox<String> member_position;
 
     @FXML
     private TextField member_search;
@@ -218,7 +218,7 @@ public void homeTotalEployee(){
         rs = pr.executeQuery();
 
         while (rs.next()){
-            countData = rs.getInt(1);
+            countData = rs.getInt("count(id)");
 
         }
         home_totemp.setText(String.valueOf(countData));
@@ -229,7 +229,7 @@ public void homeTotalEployee(){
 }
 
 public void addEmployeeTotalPresent(){
-    String sql = "select count(id) form employeedata where salary != '0.0";
+    String sql = "select count(id) form emp_info where salary != '0.0'";
     conn = DBconnct.connect();
     int countData = 0;
     try{
@@ -248,7 +248,7 @@ public void addEmployeeTotalPresent(){
 
 
 public void homeTotalInactive(){
-    String sql = "select count(id) from employee_info where salary = '0.0'";
+    String sql = "select count(id) from emp_info where salary = '0.0'";
 
     conn = DBconnct.connect();
     int countData = 0;
@@ -298,11 +298,11 @@ public void salaryShowListData(){
 
     salaryList = salaryListData();
 
-    salary_co_empid.setCellValueFactory(new PropertyValueFactory("employeeId"));
-    salary_co_fname.setCellValueFactory(new PropertyValueFactory("firstname"));
-    salary_co_lname.setCellValueFactory(new PropertyValueFactory("lastname"));
-    salary_co_position.setCellValueFactory(new PropertyValueFactory("position"));
-    salary_co_salary.setCellValueFactory(new PropertyValueFactory("salary"));
+    salary_co_empid.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+    salary_co_fname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+    salary_co_lname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+    salary_co_position.setCellValueFactory(new PropertyValueFactory<>("position"));
+    salary_co_salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 
     salary_tableView.setItems(salaryList);
 }
@@ -394,6 +394,7 @@ public void memberSearch() {
 
                     addEmployeeShowListData();
                     addEmployeeReset();
+                    member_tableView.refresh();
                 }
 
 
@@ -467,7 +468,7 @@ public  void salaryReset(){
         conn = DBconnct.connect();
 
         try{
-            if(member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() || member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() || member_position.getSelectionModel().getSelectedItem() == null || getData.path == null) {
+            if(member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() || member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() || member_position.getSelectionModel().getSelectedItem() == null ) {
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setTitle("Error");
                 a.setHeaderText(null);
@@ -498,6 +499,7 @@ public  void salaryReset(){
 
                     addEmployeeShowListData();
                     addEmployeeReset();
+                    member_tableView.refresh();
                     //memberSearch();
                 }
 
@@ -513,7 +515,7 @@ public  void salaryReset(){
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
         String sql = "insert into employeedata" +
-                "(employee_id,firstname,lastname,gender,phon_number,position,date,image)" + "values(?,?,?,?,?,?,?)";
+                "(employee_id,firstname,lastname,gender,phon_number,position,date,image)" + "values(?,?,?,?,?,?,?,?)";
         conn = DBconnct.connect();
         try{
 
@@ -525,7 +527,8 @@ public  void salaryReset(){
                 a.showAndWait();
 
             }else{
-                String check = "select employee_id from employeedata where eployee_id = '" + member_empId.getText() + "'";
+
+                String check = "select employee_id from employeedata where employee_id = '" + member_empId.getText() + "'";
 
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery(check);
@@ -552,9 +555,12 @@ public  void salaryReset(){
 
             String uri = getData.path;
             uri = uri.replace("\\", "\\\\");
-            pr.setString(7, uri);
-            pr.setDate(8, sqlDate);
+            pr.setString(8, uri);
+            pr.setDate(7, sqlDate);
             pr.executeUpdate();
+
+            addEmployeeShowListData();
+            member_tableView.refresh();
 
             String insertInfo = "inset into emp_info" + "(employee_id,firstname,lastname,position,salary) values(?,?,?,?,?)";
 
@@ -573,8 +579,11 @@ public  void salaryReset(){
             a.setContentText("successfully added");
             a.showAndWait();
 
-            addEmployeeShowListData();
+            //addEmployeeShowListData();
+
+            member_tableView.refresh();
             addEmployeeReset();
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -613,7 +622,7 @@ public void addEmployeeInsertImage() {
         getData.path = file.getAbsolutePath();
 
         // Correct usage of toURI().toString()
-        image = new Image(file.toURI().toString(), 101, 127, false, true);
+        image = new Image(file.toURI().toString(), 118, 97, false, true);
         member_img.setImage(image);
     }
 }
@@ -643,7 +652,7 @@ public void addEmployeeGenderList(){
 
     public ObservableList<employeeData> addEmployeeList(){
         ObservableList<employeeData> listdata = FXCollections.observableArrayList();
-        String sql = "select * from employeeData";
+        String sql = "select * from employeedata";
 
         conn = DBconnct.connect();
 
@@ -654,11 +663,13 @@ public void addEmployeeGenderList(){
             employeeData emp;
 
             while(rs.next()){
-                emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("gender"),rs.getString("phon_number"),rs.getString("position"),rs.getString("date"));
+                emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("gender"),rs.getString("phon_number"),rs.getString("position"),rs.getDate("date"));
 
                 listdata.add(emp);
 
+
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -688,8 +699,8 @@ private ObservableList<employeeData> addEmployeeList;
 
         // Set the cell value factories for each column
         member_co_empId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
-        member_co_fname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-        member_co_lname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        member_co_fname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        member_co_lname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         member_co_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         member_co_phn.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
         member_co_position.setCellValueFactory(new PropertyValueFactory<>("position"));
@@ -697,40 +708,71 @@ private ObservableList<employeeData> addEmployeeList;
 
         // Set the data in the table view
         member_tableView.setItems(addEmployeeList);
+       // member_tableView.refresh();
+
+
     }
+    public void addEmployeeSelect() {
+        // Get the selected employee from the table
+        employeeData emp = member_tableView.getSelectionModel().getSelectedItem();
+        int num = member_tableView.getSelectionModel().getSelectedIndex();
+
+        // Check if a valid row is selected
+        if (emp == null || num < 0) {
+            return;
+        }
+
+        // Set the fields with the selected employee's data
+        member_empId.setText(String.valueOf(emp.getEmployeeId()));
+        member_fname.setText(String.valueOf(emp.getFirstName()));
+        member_lname.setText(String.valueOf(emp.getLastName()));
+        member_gender.setValue(String.valueOf(emp.getGender())); // Use setValue for ComboBox
+        member_position.setValue(String.valueOf(emp.getPosition())); // Use setValue for ComboBox
+        member_phn.setText(String.valueOf(emp.getPhonenumber()));
+        // Load the image
+        String uri = "file:" + emp.getImage();
+        image = new Image(uri, 118, 97, false, true);
+        member_img.setImage(image);
+
+
+    }
+
 //    public void addEmployeeSelect(){
-//        employeeData emp = member_tableView.getSelectionModel().getSelctedItem();
+//        employeeData emp = member_tableView.getSelectionModel().getSelectedItem();
 //        int num = member_tableView.getSelectionModel().getSelectedIndex();
 //
+//        if( (num -1) < -1){
+//            return;
+//        }
 //
 //        member_empId.setText(valueOf(emp.getEmployeeId()));
 //        member_empId.setText(valueOf(emp.getFirstName()));
 //        member_empId.setText(valueOf(emp.getLastName()));
 //        member_empId.setText(valueOf(emp.getPhonenumber()));
 //
-//        String url = "file:"+ emp.getImage();
+//        String uri = "file:"+ emp.getImage();
 //        image = new Image(uri,101,127,false,true);
 //        member_img.setImage(image);
 //
 //    }
-public void addEmployeeSelect() {
-    // Get the selected employee from the table
-    employeeData emp = member_tableView.getSelectionModel().getSelectedItem();
-    int num = member_tableView.getSelectionModel().getSelectedIndex();
-
-    if (emp != null) {
-        // Set the fields with the selected employee's data
-        member_empId.setText(valueOf(emp.getEmployeeId()));
-        member_fname.setText(valueOf(emp.getFirstName()));
-        member_lname.setText(valueOf(emp.getLastName()));
-        member_phn.setText(valueOf(emp.getPhonenumber()));
-
-        // Load the image
-        String url = "file:" + emp.getImage();
-        image = new Image(url, 101, 127, false, true);
-        member_img.setImage(image);
-    }
-}
+//public void addEmployeeSelect() {
+//    // Get the selected employee from the table
+//    employeeData emp = member_tableView.getSelectionModel().getSelectedItem();
+//    int num = member_tableView.getSelectionModel().getSelectedIndex();
+//
+//    if (emp != null) {
+//        // Set the fields with the selected employee's data
+//        member_empId.setText(valueOf(emp.getEmployeeId()));
+//        member_fname.setText(valueOf(emp.getFirstName()));
+//        member_lname.setText(valueOf(emp.getLastName()));
+//        member_phn.setText(valueOf(emp.getPhonenumber()));
+//
+//        // Load the image
+//        String url = "file:" + emp.getImage();
+//        image = new Image(url, 101, 127, false, true);
+//        member_img.setImage(image);
+//    }
+//}
     public void displaUsername(){
         username.setText(getData.username);
     }
@@ -813,6 +855,7 @@ public void addEmployeeSelect() {
         homeTotalEployee();
         addEmployeeTotalPresent();
         homeTotalInactive();
+        addEmployeeSelect();
 
         addEmployeeShowListData();
         addEmployeeGenderList();

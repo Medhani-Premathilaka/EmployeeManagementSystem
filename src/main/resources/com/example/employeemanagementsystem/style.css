@@ -8,11 +8,7 @@
      -fx-border-color: #33cc33;
 }
 
-.close:hover{
-    -fx-background-color:"red";
-    -fx-text-fill: white;
-    -fx-text-weight:bold;
-}
+
 
 .anch2{
     -fx-background-radius: 20px;
@@ -50,9 +46,28 @@
 
 .btn{
      -fx-background-color:linear-gradient(to bottom right, #ffff00, #cc9900);
+     -fx-font-size: 14px;
     -fx-border-color: "black";
-    -fx-font-family:"times new roman";
+    -fx-font-family:"Times New Roman";
+
 }
+
+.close{
+-fx-background-color: #cc9900;
+-fx-text-weight:bold;
+}
+.close:hover{
+    -fx-background-color:#990000;
+    -fx-text-fill: white;
+    -fx-text-weight:bold;
+
+}
+.box{
+-fx-border-color:"black";
+-fx-font-family: "Arial";
+
+}
+
 .search{
     -fx-background-color: transparent;
     -fx-border-color:"black";
