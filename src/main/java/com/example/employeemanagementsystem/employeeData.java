@@ -3,6 +3,7 @@ package com.example.employeemanagementsystem;
 import java.util.Date;
 
 public class employeeData {
+    //private final Double salary;
     private String employeeId;
     private String firstName;
     private String lastName;
@@ -12,6 +13,7 @@ public class employeeData {
     private String image;
     private Date date;
     private String Image;
+    private Double salary;
 
 
     public employeeData(String employeeId, String firstName, String lastName, String gender, String phonenumber, String position, String image) {
@@ -23,9 +25,16 @@ public class employeeData {
         this.position = position;
         this.image = image;
         this.date = date;
+
     }
 
-
+public employeeData(String employeeId, String firstName,String lastName,String position,Double salary){
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.position = position;
+        this.salary = salary;
+}
     public String getEmployeeId() {
         return employeeId;
     }
@@ -58,4 +67,8 @@ public class employeeData {
         return date;
     }
 
+    public Double getSalary(){
+        return salary;
+
+    }
 }
