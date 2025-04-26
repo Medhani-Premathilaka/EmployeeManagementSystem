@@ -229,7 +229,7 @@ public void homeTotalEployee(){
 }
 
 public void addEmployeeTotalPresent(){
-    String sql = "select count(id) form emp_info where salary != '0.0";
+    String sql = "select count(id) form emp_info where salary != '0.0'";
     conn = DBconnct.connect();
     int countData = 0;
     try{
@@ -299,7 +299,7 @@ public void salaryShowListData(){
     salaryList = salaryListData();
 
     salary_co_empid.setCellValueFactory(new PropertyValueFactory("employeeId"));
-    salary_co_fname.setCellValueFactory(new PropertyValueFactory("firstname"));
+    salary_co_fname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
     salary_co_lname.setCellValueFactory(new PropertyValueFactory("lastname"));
     salary_co_position.setCellValueFactory(new PropertyValueFactory("position"));
     salary_co_salary.setCellValueFactory(new PropertyValueFactory("salary"));

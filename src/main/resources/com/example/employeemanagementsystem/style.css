@@ -46,6 +46,7 @@
 
 .btn{
      -fx-background-color:linear-gradient(to bottom right, #ffff00, #cc9900);
+     -fx-font-size: 14px;
     -fx-border-color: "black";
     -fx-font-family:"Times New Roman";
 
