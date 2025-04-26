@@ -513,7 +513,7 @@ public  void salaryReset(){
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
         String sql = "insert into employeedata" +
-                "(employee_id,firstname,lastname,gender,phon_number,position,date,image)" + "values(?,?,?,?,?,?,?)";
+                "(employee_id,firstname,lastname,gender,phon_number,position,date,image)" + "values(?,?,?,?,?,?,?,?)";
         conn = DBconnct.connect();
         try{
 
