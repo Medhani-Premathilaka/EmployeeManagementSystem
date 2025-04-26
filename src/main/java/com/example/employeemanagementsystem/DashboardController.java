@@ -218,7 +218,7 @@ public void homeTotalEployee(){
         rs = pr.executeQuery();
 
         while (rs.next()){
-            countData = rs.getInt(1);
+            countData = rs.getInt("count(id)");
 
         }
         home_totemp.setText(String.valueOf(countData));
@@ -229,7 +229,7 @@ public void homeTotalEployee(){
 }
 
 public void addEmployeeTotalPresent(){
-    String sql = "select count(id) form employeedata where salary != '0.0";
+    String sql = "select count(id) form emp_info where salary != '0.0";
     conn = DBconnct.connect();
     int countData = 0;
     try{
@@ -248,7 +248,7 @@ public void addEmployeeTotalPresent(){
 
 
 public void homeTotalInactive(){
-    String sql = "select count(id) from employee_info where salary = '0.0'";
+    String sql = "select count(id) from emp_info where salary = '0.0'";
 
     conn = DBconnct.connect();
     int countData = 0;
@@ -525,7 +525,8 @@ public  void salaryReset(){
                 a.showAndWait();
 
             }else{
-                String check = "select employee_id from employeedata where eployee_id = '" + member_empId.getText() + "'";
+
+                String check = "select employee_id from employeedata where employee_id = '" + member_empId.getText() + "'";
 
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery(check);
