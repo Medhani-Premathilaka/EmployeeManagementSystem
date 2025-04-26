@@ -62,7 +62,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="lblupper" prefHeight="38.0" prefWidth="987.0" style="-fx-background-color: #cc9900;">
+      <AnchorPane fx:id="lblupper" onDragDetected="#addEmployeeDelete" prefHeight="38.0" prefWidth="987.0" style="-fx-background-color: #cc9900;">
          <children>
             <ImageView fitHeight="23.0" fitWidth="34.0" layoutX="3.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -76,7 +76,7 @@
                </font></Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="home_form" layoutX="205.0" layoutY="47.0" prefHeight="484.0" prefWidth="782.0" styleClass="anch2" stylesheets="@style.css" visible="false">
+      <AnchorPane fx:id="home_form" layoutX="205.0" layoutY="47.0" prefHeight="484.0" prefWidth="782.0" styleClass="anch2" stylesheets="@style.css">
          <children>
             <AnchorPane layoutX="20.0" layoutY="14.0" prefHeight="132.0" prefWidth="216.0" style="-fx-background-radius: 30;" styleClass="card" stylesheets="@style.css">
                <children>
@@ -128,7 +128,7 @@
                         <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="70.0" layoutY="22.0" prefHeight="26.0" prefWidth="131.0" text="0">
+                  <Label fx:id="home_totinactive" alignment="CENTER_RIGHT" layoutX="70.0" layoutY="22.0" prefHeight="26.0" prefWidth="131.0" text="0">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -145,7 +145,7 @@
             </StackedBarChart>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
+      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css" visible="false">
          <children>
             <AnchorPane prefHeight="300.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
                <children>
@@ -160,7 +160,7 @@
                         <TableColumn fx:id="member_co_date" minWidth="8.79998779296875" prefWidth="108.00002441406252" text="Date" />
                     </columns>
                   </TableView>
-                  <TextField fx:id="member_search" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" prefHeight="26.0" prefWidth="230.0" promptText="Search" styleClass="search" stylesheets="@style.css" />
+                  <TextField fx:id="member_search" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" onAction="#memberSearch" onKeyTyped="#memberSearch" prefHeight="26.0" prefWidth="230.0" promptText="Search" styleClass="search" stylesheets="@style.css" />
                   <ImageView fitHeight="18.0" fitWidth="17.0" layoutX="22.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Images/search.png" />
@@ -204,7 +204,7 @@
          <children>
             <AnchorPane layoutX="303.0" prefHeight="482.0" prefWidth="458.0" styleClass="anch2" stylesheets="@style.css">
                <children>
-                  <TableView layoutX="21.0" layoutY="21.0" prefHeight="442.0" prefWidth="425.0">
+                  <TableView fx:id="salary_tableView" layoutX="21.0" layoutY="21.0" onMouseClicked="#salarySelect" prefHeight="442.0" prefWidth="425.0">
                      <columns>
                         <TableColumn fx:id="salary_co_empid" prefWidth="88.0" text="Employee ID" />
                         <TableColumn fx:id="salary_co_fname" text="First Name" />
@@ -227,8 +227,8 @@
                   <Label fx:id="salary_fname" layoutX="126.0" layoutY="67.0" text="Label" />
                   <Label fx:id="salary_lname" layoutX="126.0" layoutY="93.0" text="Label" />
                   <Label fx:id="salary_position" layoutX="126.0" layoutY="119.0" text="Label" />
-                  <Button fx:id="salary_clear" layoutX="27.0" layoutY="210.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Clear" />
-                  <Button fx:id="salary_update" layoutX="154.0" layoutY="210.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" visible="false" />
+                  <Button fx:id="salary_clear" layoutX="27.0" layoutY="216.0" mnemonicParsing="false" onAction="#salaryReset" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Clear" />
+                  <Button fx:id="salary_update" layoutX="161.0" layoutY="218.0" mnemonicParsing="false" onAction="#salaryUpdate" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" />
                </children>
             </AnchorPane>
          </children>

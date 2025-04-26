@@ -3,6 +3,7 @@ package com.example.employeemanagementsystem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -131,19 +132,22 @@ public class DashboardController implements Initializable {
     private Button salary_clear;
 
     @FXML
-    private TableColumn<?, ?> salary_co_empid;
+    private TableView<employeeData> salary_tableView;
 
     @FXML
-    private TableColumn<?, ?> salary_co_fname;
+    private TableColumn<employeeData, String> salary_co_empid;
 
     @FXML
-    private TableColumn<?, ?> salary_co_lname;
+    private TableColumn<employeeData, String> salary_co_fname;
 
     @FXML
-    private TableColumn<?, ?> salary_co_position;
+    private TableColumn<employeeData, String> salary_co_lname;
 
     @FXML
-    private TableColumn<?, ?> salary_co_salary;
+    private TableColumn<employeeData, String> salary_co_position;
+
+    @FXML
+    private TableColumn<employeeData, String> salary_co_salary;
 
     @FXML
     private TextField salary_empId;
@@ -172,6 +176,8 @@ public class DashboardController implements Initializable {
     @FXML
     private TableView<employeeData> member_tableView;
 
+
+
 //    @FXML
 //    void close(ActionEvent event) {
 //
@@ -184,13 +190,155 @@ public class DashboardController implements Initializable {
     private ResultSet rs;
     private Image image;
 
-//    public void memberSearch(){
-//        FilteredList<employeeData> filter = new FilteredList<>(addEmployeeList, e -> true);
-//        filter.setPredicate(predicateEmployeeData ->{
-//            if(newValue == null || newValue.isEmpty()){
-//                return true;
-//        });
-//    }
+//  public void homChart(){
+//      home_chart.getData().clear();
+//
+//      String sql = "select date, count(id) from employeedata group by timestamp(date) asc limit ?";
+//
+//      conn = DBconnct.connect();
+//        try{
+//            pr = conn.prepareStatement(sql);
+//            pr.setInt(1, 5);
+//            rs = pr.executeQuery();
+//
+//            while (rs.next()){
+//                home_chart.getData().add(new XYChart.Data(rs.getString("date"), rs.getInt("count(id)")));
+//            }
+//  }
+
+public void homeTotalEployee(){
+    String sql = "select count(id) from employeedata";
+
+    conn = DBconnct.connect();
+    int countData = 0;
+
+    try {
+
+        pr = conn.prepareStatement(sql);
+        rs = pr.executeQuery();
+
+        while (rs.next()){
+            countData = rs.getInt(1);
+
+        }
+        home_totemp.setText(String.valueOf(countData));
+
+    }catch (Exception e){
+        e.printStackTrace();
+    }
+}
+
+public void addEmployeeTotalPresent(){
+    String sql = "select count(id) form employeedata where salary != '0.0";
+    conn = DBconnct.connect();
+    int countData = 0;
+    try{
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(sql);
+
+        while (rs.next()){
+            countData = rs.getInt("count(id)");
+
+        }
+        home_totemp.setText(String.valueOf(countData));
+    }catch (Exception e){
+        e.printStackTrace();
+    }
+}
+
+
+public void homeTotalInactive(){
+    String sql = "select count(id) from employee_info where salary = '0.0'";
+
+    conn = DBconnct.connect();
+    int countData = 0;
+
+    try{
+        pr = conn.prepareStatement(sql);
+        rs = pr.executeQuery();
+
+        while (rs.next()){
+            countData = rs.getInt("count(id)");
+
+        }
+        home_inactive.setText(String.valueOf(countData));
+    }catch (Exception e){
+        e.printStackTrace();
+    }
+
+}
+
+public ObservableList<employeeData> salaryListData(){
+    ObservableList<employeeData> listdata = FXCollections.observableArrayList();
+    String sql = "select * from emp_info";
+
+    conn = DBconnct.connect();
+
+    try{
+
+        pr = conn.prepareStatement(sql);
+        rs = pr.executeQuery();
+        employeeData emp;
+
+        while(rs.next()){
+            emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("position"),rs.getDouble("salary"));
+
+            listdata.add(emp);
+
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+    return listdata;
+}
+
+private ObservableList<employeeData> salaryList;
+
+public void salaryShowListData(){
+
+    salaryList = salaryListData();
+
+    salary_co_empid.setCellValueFactory(new PropertyValueFactory("employeeId"));
+    salary_co_fname.setCellValueFactory(new PropertyValueFactory("firstname"));
+    salary_co_lname.setCellValueFactory(new PropertyValueFactory("lastname"));
+    salary_co_position.setCellValueFactory(new PropertyValueFactory("position"));
+    salary_co_salary.setCellValueFactory(new PropertyValueFactory("salary"));
+
+    salary_tableView.setItems(salaryList);
+}
+
+public void memberSearch() {
+    FilteredList<employeeData> filter = new FilteredList<>(addEmployeeList, e -> true);
+
+    filter.setPredicate(predicateEmployeeData -> {
+        String newValue = member_search.getText(); // Get the search input
+        if (newValue == null || newValue.isEmpty()) {
+            return true;
+        }
+        String searchKey = newValue.toLowerCase();
+
+        if (predicateEmployeeData.getEmployeeId().toString().contains(searchKey)) {
+            return true;
+        } else if (predicateEmployeeData.getFirstName().toLowerCase().contains(searchKey)) {
+            return true;
+        } else if (predicateEmployeeData.getLastName().toLowerCase().contains(searchKey)) {
+            return true;
+        } else if (predicateEmployeeData.getGender().toLowerCase().contains(searchKey)) {
+            return true;
+        } else if (predicateEmployeeData.getPhonenumber().toLowerCase().contains(searchKey)) {
+            return true;
+        } else if (predicateEmployeeData.getPosition().toLowerCase().contains(searchKey)) {
+            return true;
+        } else if (predicateEmployeeData.getDate().toString().contains(searchKey)) {
+            return true;
+        }
+        return false; // Default case
+    });
+
+    SortedList<employeeData> sortList = new SortedList<>(filter);
+    sortList.comparatorProperty().bind(member_tableView.comparatorProperty());
+    member_tableView.setItems(sortList);
+}
 
     public void addEmployeeUpdate(){
 
@@ -212,7 +360,7 @@ public class DashboardController implements Initializable {
                 a.showAndWait();
 
             }else{
-                Alert a = new Alert(Alert.AlertType.ERROR);
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Error");
                 a.setHeaderText(null);
                 a.setContentText("Are you sure you want to update?");
@@ -221,6 +369,22 @@ public class DashboardController implements Initializable {
                 if(option.get().equals(ButtonType.OK)){
                    stmt = conn.createStatement();
                    stmt.executeUpdate(sql);
+
+                   double salary = 0;
+
+                   String checkData = "select * from emp_info where employee_id = '" + member_empId.getText() + "'";
+
+                   pr = conn.prepareStatement(checkData);
+                   rs = pr.executeQuery();
+
+                   while (rs.next()){
+                       salary = rs.getDouble("salary");
+                   }
+
+                   String updateInfo = "update emp_info set firstname = '" + member_fname.getText() + " ' , lastname = '" + member_lname.getText() + " ' , position = ' " + member_position.getSelectionModel().getSelectedItem() + " ' where employee_id = '" + member_empId.getText() + "'";
+
+                   pr = conn.prepareStatement(updateInfo);
+                   pr.executeUpdate();
 
                    a =  new Alert(Alert.AlertType.INFORMATION);
                    a.setTitle("Information Message");
@@ -240,6 +404,62 @@ public class DashboardController implements Initializable {
         }
 
     }
+
+    public void salaryUpdate() {
+        String sql = "update emp_info set salary = '" + salary_salary.getText() + "' where employee_id = '" + salary_empId.getText() + "'";
+
+        try {
+            Alert a;
+            // Corrected the condition to check if all fields are empty
+            if (salary_empId.getText().isEmpty() || salary_fname.getText().isEmpty() || salary_lname.getText().isEmpty() || salary_position.getText().isEmpty()) {
+                a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText(null);
+                a.setContentText("Please fill all fields");
+                a.showAndWait();
+            } else {
+                stmt = conn.createStatement();
+                stmt.executeUpdate(sql);
+
+                a = new Alert(Alert.AlertType.INFORMATION);
+                a.setTitle("Information Manage ");
+                a.setHeaderText(null);
+                a.setContentText("Successfully updated");
+                a.showAndWait();
+
+                salaryShowListData();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+public  void salaryReset(){
+    salary_empId.setText("");
+    salary_fname.setText("");
+    salary_lname.setText("");
+    salary_position.setText("");
+    salary_salary.setText("");
+
+    salary_tableView.getSelectionModel().clearSelection();
+    salary_tableView.refresh();
+}
+
+   public void  salarySelect(){
+    employeeData empd = salary_tableView.getSelectionModel().getSelectedItem();
+    int num = salary_tableView.getSelectionModel().getSelectedIndex();
+
+    if( (num -1) < -1){
+        return;
+    }
+
+    salary_empId.setText(String.valueOf(empd.getEmployeeId()));
+    salary_fname.setText(empd.getFirstName());
+    salary_lname.setText(empd.getLastName());
+    salary_position.setText(empd.getPosition());
+    salary_salary.setText((String.valueOf(empd.getSalary())));
+   }
+
     public  void addEmployeeDelete(){
 
         String  sql = "delete from employeedata where employee_id = '" + member_empId.getText() + "'";
@@ -265,6 +485,11 @@ public class DashboardController implements Initializable {
                     stmt = conn.createStatement();
                     stmt.executeUpdate(sql);
 
+                    String deleteInfo = "delete from emp_info where employee_id = '" + member_empId.getText() + "'";
+
+                    pr = conn.prepareStatement(deleteInfo);
+                    pr.executeUpdate();
+
                     a =  new Alert(Alert.AlertType.INFORMATION);
                     a.setTitle("Information Message");
                     a.setHeaderText(null);
@@ -273,6 +498,7 @@ public class DashboardController implements Initializable {
 
                     addEmployeeShowListData();
                     addEmployeeReset();
+                    //memberSearch();
                 }
 
 
@@ -329,6 +555,18 @@ public class DashboardController implements Initializable {
             pr.setString(7, uri);
             pr.setDate(8, sqlDate);
             pr.executeUpdate();
+
+            String insertInfo = "inset into emp_info" + "(employee_id,firstname,lastname,position,salary) values(?,?,?,?,?)";
+
+            pr = conn.prepareStatement(insertInfo);
+            pr.setString(1, member_empId.getText());
+            pr.setString(2, member_fname.getText());
+            pr.setString(3, member_lname.getText());
+            pr.setString(4, (String) member_position.getSelectionModel().getSelectedItem());
+            pr.setDouble(5, 0.0);
+            pr.setString(6, String.valueOf(sqlDate));
+
+
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setTitle("Information msg");
             a.setHeaderText(null);
@@ -396,7 +634,7 @@ private String[] listGender = {"male","female","other"};
 public void addEmployeeGenderList(){
     List<String> listG = new ArrayList<>();
 
-    for(String data: positionList){
+    for(String data: listGender){
         listG.add(data);
     }
     ObservableList listData = FXCollections.observableArrayList(listG);
@@ -508,6 +746,10 @@ public void addEmployeeSelect() {
             btnaddmember.setStyle("-fx-background-color:  transparent");
             btnsalary.setStyle("-fx-background-color:  transparent");
 
+            homeTotalEployee();
+            addEmployeeTotalPresent();
+            homeTotalInactive();
+
         }else if(event.getSource() == btnaddmember){
             home_form.setVisible(false);
             member_form.setVisible(true);
@@ -519,7 +761,7 @@ public void addEmployeeSelect() {
 
             addEmployeePositionList();
             addEmployeeGenderList();
-
+            memberSearch();
 
         }else if(event.getSource() == btnsalary){
             home_form.setVisible(false);
@@ -529,6 +771,7 @@ public void addEmployeeSelect() {
             btnhome.setStyle("-fx-background-color:  transparent");
             btnaddmember.setStyle("-fx-background-color:  transparent");
             btnsalary.setStyle("-fx-background-color:  #cc9900");
+            salaryShowListData();
         }
     }
 
@@ -565,8 +808,16 @@ public void addEmployeeSelect() {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        displaUsername();
+
+        homeTotalEployee();
+        addEmployeeTotalPresent();
+        homeTotalInactive();
+
         addEmployeeShowListData();
         addEmployeeGenderList();
         addEmployeePositionList();
+
+        salaryShowListData();
     }
 }
