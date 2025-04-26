@@ -105,7 +105,7 @@ public class DashboardController implements Initializable {
     private AnchorPane member_form;
 
     @FXML
-    private ComboBox<?> member_gender;
+    private ComboBox<String> member_gender;
 
     @FXML
     private ImageView member_img;
@@ -120,7 +120,7 @@ public class DashboardController implements Initializable {
     private TextField member_phn;
 
     @FXML
-    private ComboBox<?> member_position;
+    private ComboBox<String> member_position;
 
     @FXML
     private TextField member_search;
@@ -468,7 +468,7 @@ public  void salaryReset(){
         conn = DBconnct.connect();
 
         try{
-            if(member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() || member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() || member_position.getSelectionModel().getSelectedItem() == null || getData.path == null) {
+            if(member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() || member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() || member_position.getSelectionModel().getSelectedItem() == null ) {
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setTitle("Error");
                 a.setHeaderText(null);
@@ -499,6 +499,7 @@ public  void salaryReset(){
 
                     addEmployeeShowListData();
                     addEmployeeReset();
+                    member_tableView.refresh();
                     //memberSearch();
                 }
 
@@ -621,7 +622,7 @@ public void addEmployeeInsertImage() {
         getData.path = file.getAbsolutePath();
 
         // Correct usage of toURI().toString()
-        image = new Image(file.toURI().toString(), 101, 127, false, true);
+        image = new Image(file.toURI().toString(), 118, 97, false, true);
         member_img.setImage(image);
     }
 }
@@ -707,43 +708,71 @@ private ObservableList<employeeData> addEmployeeList;
 
         // Set the data in the table view
         member_tableView.setItems(addEmployeeList);
-        addEmployeeSelect();
+       // member_tableView.refresh();
 
 
     }
+    public void addEmployeeSelect() {
+        // Get the selected employee from the table
+        employeeData emp = member_tableView.getSelectionModel().getSelectedItem();
+        int num = member_tableView.getSelectionModel().getSelectedIndex();
+
+        // Check if a valid row is selected
+        if (emp == null || num < 0) {
+            return;
+        }
+
+        // Set the fields with the selected employee's data
+        member_empId.setText(String.valueOf(emp.getEmployeeId()));
+        member_fname.setText(String.valueOf(emp.getFirstName()));
+        member_lname.setText(String.valueOf(emp.getLastName()));
+        member_gender.setValue(String.valueOf(emp.getGender())); // Use setValue for ComboBox
+        member_position.setValue(String.valueOf(emp.getPosition())); // Use setValue for ComboBox
+        member_phn.setText(String.valueOf(emp.getPhonenumber()));
+        // Load the image
+        String uri = "file:" + emp.getImage();
+        image = new Image(uri, 118, 97, false, true);
+        member_img.setImage(image);
+
+
+    }
+
 //    public void addEmployeeSelect(){
-//        employeeData emp = member_tableView.getSelectionModel().getSelctedItem();
+//        employeeData emp = member_tableView.getSelectionModel().getSelectedItem();
 //        int num = member_tableView.getSelectionModel().getSelectedIndex();
 //
+//        if( (num -1) < -1){
+//            return;
+//        }
 //
 //        member_empId.setText(valueOf(emp.getEmployeeId()));
 //        member_empId.setText(valueOf(emp.getFirstName()));
 //        member_empId.setText(valueOf(emp.getLastName()));
 //        member_empId.setText(valueOf(emp.getPhonenumber()));
 //
-//        String url = "file:"+ emp.getImage();
+//        String uri = "file:"+ emp.getImage();
 //        image = new Image(uri,101,127,false,true);
 //        member_img.setImage(image);
 //
 //    }
-public void addEmployeeSelect() {
-    // Get the selected employee from the table
-    employeeData emp = member_tableView.getSelectionModel().getSelectedItem();
-    int num = member_tableView.getSelectionModel().getSelectedIndex();
-
-    if (emp != null) {
-        // Set the fields with the selected employee's data
-        member_empId.setText(valueOf(emp.getEmployeeId()));
-        member_fname.setText(valueOf(emp.getFirstName()));
-        member_lname.setText(valueOf(emp.getLastName()));
-        member_phn.setText(valueOf(emp.getPhonenumber()));
-
-        // Load the image
-        String url = "file:" + emp.getImage();
-        image = new Image(url, 101, 127, false, true);
-        member_img.setImage(image);
-    }
-}
+//public void addEmployeeSelect() {
+//    // Get the selected employee from the table
+//    employeeData emp = member_tableView.getSelectionModel().getSelectedItem();
+//    int num = member_tableView.getSelectionModel().getSelectedIndex();
+//
+//    if (emp != null) {
+//        // Set the fields with the selected employee's data
+//        member_empId.setText(valueOf(emp.getEmployeeId()));
+//        member_fname.setText(valueOf(emp.getFirstName()));
+//        member_lname.setText(valueOf(emp.getLastName()));
+//        member_phn.setText(valueOf(emp.getPhonenumber()));
+//
+//        // Load the image
+//        String url = "file:" + emp.getImage();
+//        image = new Image(url, 101, 127, false, true);
+//        member_img.setImage(image);
+//    }
+//}
     public void displaUsername(){
         username.setText(getData.username);
     }

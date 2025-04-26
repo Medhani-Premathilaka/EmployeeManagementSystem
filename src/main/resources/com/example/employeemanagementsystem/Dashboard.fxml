@@ -147,9 +147,9 @@
       </AnchorPane>
       <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
          <children>
-            <AnchorPane prefHeight="300.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
+            <AnchorPane onMouseClicked="#addEmployeeSelect" prefHeight="300.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
                <children>
-                  <TableView fx:id="member_tableView" layoutX="22.0" layoutY="86.0" onSort="#addEmployeeShowListData" prefHeight="200.0" prefWidth="717.0" stylesheets="@style.css">
+                  <TableView fx:id="member_tableView" layoutX="22.0" layoutY="86.0" onMouseClicked="#addEmployeeSelect" onSort="#addEmployeeShowListData" prefHeight="200.0" prefWidth="717.0" stylesheets="@style.css">
                     <columns>
                       <TableColumn fx:id="member_co_empId" prefWidth="100.80003356933594" text="Employee ID" />
                       <TableColumn fx:id="member_co_fname" prefWidth="101.60003662109375" text="First Name" />
