@@ -663,7 +663,7 @@ public void addEmployeeGenderList(){
             employeeData emp;
 
             while(rs.next()){
-                emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("gender"),rs.getString("phon_number"),rs.getString("position"),rs.getDate("date"));
+                emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("gender"),rs.getString("phon_number"),rs.getString("position"),rs.getDate("date"),rs.getString("Image"));
 
                 listdata.add(emp);
 
