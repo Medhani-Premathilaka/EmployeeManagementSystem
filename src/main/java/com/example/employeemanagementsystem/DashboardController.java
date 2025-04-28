@@ -340,71 +340,141 @@ public void memberSearch() {
     member_tableView.setItems(sortList);
 }
 
-    public void addEmployeeUpdate(){
+//    public void addEmployeeUpdate(){
+//
+//        String uri = getData.path;
+//        uri = uri.replace("\\","\\\\");
+//
+//        Date date = new Date();
+//        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+//
+//        String sql = "update employeedata set firstname = '"+ member_fname.getText() +" ' , lastname = '" +member_lname.getText() +" ' , gender = ' " + member_gender.getSelectionModel().getSelectedItem() + " ' , position = ' " +member_position.getSelectionModel().getSelectedItem() + "' phone_number = ' " + member_phn.getText() + " ' , Image = ' " + uri + " ' , date = ' " + sqlDate + " ' where employee_id = '" + member_empId.getText() + "'";
+//
+//        conn = DBconnct.connect();
+//        try{
+//            if(member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() || member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() || member_position.getSelectionModel().getSelectedItem() == null || getData.path == null) {
+//                Alert a = new Alert(Alert.AlertType.ERROR);
+//                a.setTitle("Error");
+//                a.setHeaderText(null);
+//                a.setContentText("Please fill all fields");
+//                a.showAndWait();
+//
+//            }else{
+//                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+//                a.setTitle("Update");
+//                a.setHeaderText(null);
+//                a.setContentText("Are you sure you want to update :" + member_empId.getText() + "?" );
+//                Optional<ButtonType> option = a.showAndWait();
+//
+//                if(option.get().equals(ButtonType.OK)){
+//                   stmt = conn.createStatement();
+//                   stmt.executeUpdate(sql);
+//
+//                    addEmployeeShowListData();
+//                    member_tableView.refresh();
+//                    addEmployeeReset();
+//
+//
+//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                    alert.setTitle("Error");
+//                    alert.setHeaderText(null);
+//                    alert.setContentText("Updated" );
+//                    alert.showAndWait();
+//
+//
+////                   double salary = 0;
+////
+////                   String checkData = "select * from emp_info where employee_id = '" + member_empId.getText() + "'";
+////
+////                   pr = conn.prepareStatement(checkData);
+////                   rs = pr.executeQuery();
+////
+////                   while (rs.next()){
+////                       salary = rs.getDouble("salary");
+//                   }
+//
+////                   String updateInfo = "update emp_info set firstname = '" + member_fname.getText() + " ' , lastname = '" + member_lname.getText() + " ' , position = ' " + member_position.getSelectionModel().getSelectedItem() + " ' where employee_id = '" + member_empId.getText() + "'";
+////
+////                   pr = conn.prepareStatement(updateInfo);
+////                   pr.executeUpdate();
+////                    addEmployeeShowListData();
+////                    member_tableView.refresh();
+////                    addEmployeeReset();
+////
+////                   a =  new Alert(Alert.AlertType.INFORMATION);
+////                   a.setTitle("Information Message");
+////                   a.setHeaderText(null);
+////                   a.setHeaderText("Successfully Updated!");
+////                   a.showAndWait();
+////
+//
+//
+//                }
+//
+//
+//            } catch (SQLException ex) {
+//            throw new RuntimeException(ex);
+//        }
+//
+//    }
 
-        String uri = getData.path;
-        uri = uri.replace("\\","\\\\");
+public void addEmployeeUpdate() {
+    String uri = getData.path;
+      uri = uri.replace("\\","\\\\");
 
-        Date date = new Date();
-        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+    Date date = new Date();
+    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-        String sql = "update employeedata set firstname = '"+ member_fname.getText() +" ' , lastname = '" +member_lname.getText() +" ' , gender = ' " + member_gender.getSelectionModel().getSelectedItem() + " ' , position = ' " +member_position.getSelectionModel().getSelectedItem() + "' phone_number = ' " + member_phn.getText() + " ' , image = ' " + uri + " ' , date = ' " + sqlDate + " ' where employee_id = '" + member_empId.getText() + "'";
+    String sql = "update employeedata set firstname = '"+ member_fname.getText() +" ' , lastname = '" +member_lname.getText() +" ' , gender = ' " + member_gender.getSelectionModel().getSelectedItem() + " ' , position = ' " +member_position.getSelectionModel().getSelectedItem() + "', phone_number = ' " + member_phn.getText() + " ' , Image = ' " + uri + " ' , date = ' " + sqlDate + " ' where employee_id = '" + member_empId.getText() + "'";
 
-        conn = DBconnct.connect();
-        try{
-            if(member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() || member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() || member_position.getSelectionModel().getSelectedItem() == null || getData.path == null) {
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setTitle("Error");
-                a.setHeaderText(null);
-                a.setContentText("Please fill all fields");
-                a.showAndWait();
+    conn = DBconnct.connect();
+    try {
+        if (member_empId.getText().isEmpty() || member_fname.getText().isEmpty() || member_lname.getText().isEmpty() ||
+                member_gender.getSelectionModel().getSelectedItem() == null || member_phn.getText().isEmpty() ||
+                member_position.getSelectionModel().getSelectedItem() == null || getData.path == null) {
 
-            }else{
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                a.setTitle("Error");
-                a.setHeaderText(null);
-                a.setContentText("Are you sure you want to update?");
-                Optional<ButtonType> option = a.showAndWait();
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText(null);
+            a.setContentText("Please fill all fields");
+            a.showAndWait();
+        } else {
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Confirmation");
+            a.setHeaderText(null);
+            a.setContentText("Are you sure you want to update: " + member_empId.getText() + "?");
+            Optional<ButtonType> option = a.showAndWait();
 
-                if(option.get().equals(ButtonType.OK)){
-                   stmt = conn.createStatement();
-                   stmt.executeUpdate(sql);
+            if (option.isPresent() && option.get().equals(ButtonType.OK)) {
+                pr = conn.prepareStatement(sql);
+                pr.setString(1, member_fname.getText());
+                pr.setString(2, member_lname.getText());
+                pr.setString(3, member_gender.getSelectionModel().getSelectedItem());
+                pr.setString(4, member_position.getSelectionModel().getSelectedItem());
+                pr.setString(5, member_phn.getText());
+                pr.setString(6, uri);
+                pr.setDate(7, sqlDate);
+                pr.setString(8, member_empId.getText());
 
-                   double salary = 0;
+                pr.executeUpdate();
 
-                   String checkData = "select * from emp_info where employee_id = '" + member_empId.getText() + "'";
+                addEmployeeShowListData();
+                member_tableView.refresh();
+                addEmployeeReset();
 
-                   pr = conn.prepareStatement(checkData);
-                   rs = pr.executeQuery();
-
-                   while (rs.next()){
-                       salary = rs.getDouble("salary");
-                   }
-
-                   String updateInfo = "update emp_info set firstname = '" + member_fname.getText() + " ' , lastname = '" + member_lname.getText() + " ' , position = ' " + member_position.getSelectionModel().getSelectedItem() + " ' where employee_id = '" + member_empId.getText() + "'";
-
-                   pr = conn.prepareStatement(updateInfo);
-                   pr.executeUpdate();
-
-                   a =  new Alert(Alert.AlertType.INFORMATION);
-                   a.setTitle("Information Message");
-                   a.setHeaderText(null);
-                   a.setHeaderText("Successfully Updated!");
-                   a.showAndWait();
-
-                    addEmployeeShowListData();
-                    addEmployeeReset();
-                    member_tableView.refresh();
-                }
-
-
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null);
+                alert.setContentText("Employee updated successfully!");
+                alert.showAndWait();
             }
-
-        }catch (Exception e){
-                e.printStackTrace();
         }
-
+    } catch (SQLException ex) {
+        ex.printStackTrace();
     }
+}
+
+
 
     public void salaryUpdate() {
         String sql = "update emp_info set salary = '" + salary_salary.getText() + "' where employee_id = '" + salary_empId.getText() + "'";
@@ -476,8 +546,8 @@ public  void salaryReset(){
                 a.showAndWait();
 
             }else{
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setTitle("Error");
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("Delete");
                 a.setHeaderText(null);
                 a.setContentText("Are you sure you want to delete?");
                 Optional<ButtonType> option = a.showAndWait();
@@ -486,20 +556,27 @@ public  void salaryReset(){
                     stmt = conn.createStatement();
                     stmt.executeUpdate(sql);
 
-                    String deleteInfo = "delete from emp_info where employee_id = '" + member_empId.getText() + "'";
+                    String deleteInfo = "delete from employeedata where employee_id = '" + member_empId.getText() + "'";
 
                     pr = conn.prepareStatement(deleteInfo);
                     pr.executeUpdate();
 
-                    a =  new Alert(Alert.AlertType.INFORMATION);
-                    a.setTitle("Information Message");
-                    a.setHeaderText(null);
-                    a.setHeaderText("Successfully Updated!");
-                    a.showAndWait();
+                    //member_tableView.refresh();
+                    //addEmployeeReset();
+                    System.out.println("deleted");
+
+//                    a =  new Alert(Alert.AlertType.INFORMATION);
+//                    a.setTitle("Information Message");
+//                    a.setHeaderText(null);
+//                    a.setHeaderText("Successfully Deleted!");
+//                    a.showAndWait();
 
                     addEmployeeShowListData();
-                    addEmployeeReset();
                     member_tableView.refresh();
+                    addEmployeeReset();
+
+
+
                     //memberSearch();
                 }
 
@@ -561,6 +638,7 @@ public  void salaryReset(){
 
             addEmployeeShowListData();
             member_tableView.refresh();
+            addEmployeeReset();
 
             String insertInfo = "inset into emp_info" + "(employee_id,firstname,lastname,position,salary) values(?,?,?,?,?)";
 
@@ -581,8 +659,8 @@ public  void salaryReset(){
 
             //addEmployeeShowListData();
 
-            member_tableView.refresh();
-            addEmployeeReset();
+//            member_tableView.refresh();
+//            addEmployeeReset();
 
 
         } catch (SQLException e) {
@@ -663,7 +741,7 @@ public void addEmployeeGenderList(){
             employeeData emp;
 
             while(rs.next()){
-                emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("gender"),rs.getString("phon_number"),rs.getString("position"),rs.getDate("date"));
+                emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("gender"),rs.getString("phon_number"),rs.getString("position"),rs.getDate("date"),rs.getString("Image"));
 
                 listdata.add(emp);
 
@@ -718,16 +796,17 @@ private ObservableList<employeeData> addEmployeeList;
         int num = member_tableView.getSelectionModel().getSelectedIndex();
 
         // Check if a valid row is selected
-        if (emp == null || num < 0) {
+        if( (num -1) < -1){
             return;
         }
 
         // Set the fields with the selected employee's data
+        member_gender.setValue(String.valueOf(emp.getGender())); // Use setValue for ComboBox
+        member_position.setValue(String.valueOf(emp.getPosition()));
         member_empId.setText(String.valueOf(emp.getEmployeeId()));
         member_fname.setText(String.valueOf(emp.getFirstName()));
         member_lname.setText(String.valueOf(emp.getLastName()));
-        member_gender.setValue(String.valueOf(emp.getGender())); // Use setValue for ComboBox
-        member_position.setValue(String.valueOf(emp.getPosition())); // Use setValue for ComboBox
+         // Use setValue for ComboBox
         member_phn.setText(String.valueOf(emp.getPhonenumber()));
         // Load the image
         String uri = "file:" + emp.getImage();

@@ -1,6 +1,7 @@
 package com.example.employeemanagementsystem;
 
 import java.util.Date;
+import java.util.SimpleTimeZone;
 
 public class employeeData {
     //private final Double salary;
@@ -16,7 +17,7 @@ public class employeeData {
     private Double salary;
 
 
-    public employeeData(String employeeId, String firstName, String lastName, String gender, String phonenumber, String position, Date date) {
+    public employeeData(String employeeId, String firstName, String lastName, String gender, String phonenumber, String position, Date date, String image) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
