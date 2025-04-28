@@ -229,7 +229,7 @@ public void homeTotalEployee(){
 }
 
 public void addEmployeeTotalPresent(){
-    String sql = "select count(id) form emp_info where salary != '0.0'";
+    String sql = "select count(id) from emp_info where salary != '0.0'";
     conn = DBconnct.connect();
     int countData = 0;
     try{
@@ -281,7 +281,7 @@ public ObservableList<employeeData> salaryListData(){
         employeeData emp;
 
         while(rs.next()){
-            emp = new employeeData(rs.getString("employee_id"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("position"),rs.getDouble("salary"));
+            emp = new employeeData(rs.getString("employeeId"),rs.getString("firstname"),rs.getString("lastname"),rs.getString("position"),rs.getDouble("salary"));
 
             listdata.add(emp);
 
@@ -300,7 +300,7 @@ public void salaryShowListData(){
 
     salary_co_empid.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
     salary_co_fname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-    salary_co_lname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+    salary_co_lname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
     salary_co_position.setCellValueFactory(new PropertyValueFactory<>("position"));
     salary_co_salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 
