@@ -145,7 +145,7 @@
             </StackedBarChart>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
+      <AnchorPane fx:id="member_form" layoutX="215.0" layoutY="47.0" prefHeight="482.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css" visible="false">
          <children>
             <AnchorPane onMouseClicked="#addEmployeeSelect" prefHeight="300.0" prefWidth="762.0" styleClass="anch2" stylesheets="@style.css">
                <children>
@@ -209,11 +209,11 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="salary_form" layoutX="211.0" layoutY="49.0" prefHeight="482.0" prefWidth="762.0" visible="false">
+      <AnchorPane fx:id="salary_form" layoutX="211.0" layoutY="49.0" prefHeight="482.0" prefWidth="762.0">
          <children>
             <AnchorPane layoutX="303.0" prefHeight="482.0" prefWidth="458.0" styleClass="anch2" stylesheets="@style.css">
                <children>
-                  <TableView fx:id="salary_tableView" layoutX="21.0" layoutY="21.0" onMouseClicked="#salarySelect" prefHeight="442.0" prefWidth="425.0">
+                  <TableView fx:id="salary_tableView" layoutX="21.0" layoutY="21.0" onMouseClicked="#salarySelect" onSort="#salaryShowListData" prefHeight="442.0" prefWidth="425.0">
                      <columns>
                         <TableColumn fx:id="salary_co_empid" prefWidth="88.0" text="Employee ID" />
                         <TableColumn fx:id="salary_co_fname" text="First Name" />
@@ -236,8 +236,14 @@
                   <Label fx:id="salary_fname" layoutX="126.0" layoutY="67.0" text="Label" />
                   <Label fx:id="salary_lname" layoutX="126.0" layoutY="93.0" text="Label" />
                   <Label fx:id="salary_position" layoutX="126.0" layoutY="119.0" text="Label" />
-                  <Button fx:id="salary_clear" layoutX="27.0" layoutY="216.0" mnemonicParsing="false" onAction="#salaryReset" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Clear" />
-                  <Button fx:id="salary_update" layoutX="161.0" layoutY="218.0" mnemonicParsing="false" onAction="#salaryUpdate" prefHeight="46.0" prefWidth="86.0" styleClass="anch1" stylesheets="@style.css" text="Update" />
+                  <Button fx:id="salary_clear" layoutX="27.0" layoutY="216.0" mnemonicParsing="false" onAction="#salaryReset" prefHeight="46.0" prefWidth="86.0" styleClass="btn" stylesheets="@style.css" text="Clear">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Button>
+                  <Button fx:id="salary_update" layoutX="161.0" layoutY="218.0" mnemonicParsing="false" onAction="#salaryUpdate" prefHeight="46.0" prefWidth="86.0" styleClass="btn" stylesheets="@style.css" text="Update">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
                </children>
             </AnchorPane>
          </children>
