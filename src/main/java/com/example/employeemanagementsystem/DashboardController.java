@@ -476,8 +476,8 @@ public  void salaryReset(){
                 a.showAndWait();
 
             }else{
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setTitle("Error");
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("Delete");
                 a.setHeaderText(null);
                 a.setContentText("Are you sure you want to delete?");
                 Optional<ButtonType> option = a.showAndWait();
@@ -486,20 +486,27 @@ public  void salaryReset(){
                     stmt = conn.createStatement();
                     stmt.executeUpdate(sql);
 
-                    String deleteInfo = "delete from emp_info where employee_id = '" + member_empId.getText() + "'";
+                    String deleteInfo = "delete from employeedata where employee_id = '" + member_empId.getText() + "'";
 
                     pr = conn.prepareStatement(deleteInfo);
                     pr.executeUpdate();
 
-                    a =  new Alert(Alert.AlertType.INFORMATION);
-                    a.setTitle("Information Message");
-                    a.setHeaderText(null);
-                    a.setHeaderText("Successfully Updated!");
-                    a.showAndWait();
+                    //member_tableView.refresh();
+                    //addEmployeeReset();
+                    System.out.println("deleted");
+
+//                    a =  new Alert(Alert.AlertType.INFORMATION);
+//                    a.setTitle("Information Message");
+//                    a.setHeaderText(null);
+//                    a.setHeaderText("Successfully Deleted!");
+//                    a.showAndWait();
 
                     addEmployeeShowListData();
-                    addEmployeeReset();
                     member_tableView.refresh();
+                    addEmployeeReset();
+
+
+
                     //memberSearch();
                 }
 
@@ -561,6 +568,7 @@ public  void salaryReset(){
 
             addEmployeeShowListData();
             member_tableView.refresh();
+            addEmployeeReset();
 
             String insertInfo = "inset into emp_info" + "(employee_id,firstname,lastname,position,salary) values(?,?,?,?,?)";
 
@@ -581,8 +589,8 @@ public  void salaryReset(){
 
             //addEmployeeShowListData();
 
-            member_tableView.refresh();
-            addEmployeeReset();
+//            member_tableView.refresh();
+//            addEmployeeReset();
 
 
         } catch (SQLException e) {
@@ -718,16 +726,17 @@ private ObservableList<employeeData> addEmployeeList;
         int num = member_tableView.getSelectionModel().getSelectedIndex();
 
         // Check if a valid row is selected
-        if (emp == null || num < 0) {
+        if( (num -1) < -1){
             return;
         }
 
         // Set the fields with the selected employee's data
+        member_gender.setValue(String.valueOf(emp.getGender())); // Use setValue for ComboBox
+        member_position.setValue(String.valueOf(emp.getPosition()));
         member_empId.setText(String.valueOf(emp.getEmployeeId()));
         member_fname.setText(String.valueOf(emp.getFirstName()));
         member_lname.setText(String.valueOf(emp.getLastName()));
-        member_gender.setValue(String.valueOf(emp.getGender())); // Use setValue for ComboBox
-        member_position.setValue(String.valueOf(emp.getPosition())); // Use setValue for ComboBox
+         // Use setValue for ComboBox
         member_phn.setText(String.valueOf(emp.getPhonenumber()));
         // Load the image
         String uri = "file:" + emp.getImage();
